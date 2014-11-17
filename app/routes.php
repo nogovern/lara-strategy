@@ -115,7 +115,7 @@ Route::get('billing/mobile', function()
 });
 
 // kgpg 사에서 post 방식으로 호출됨
-Route::post('billing/mobile/listen', function()
+Route::post('billing/mobile', function()
 {
 	return View::make('pg_sample.mobile.okurl_utf8');
 	// return Input::all();
