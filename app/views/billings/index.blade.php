@@ -31,10 +31,10 @@ function appr_dtm() {
 		<div class="page-header">
 			<h3>결제양식</h3>
 		</div>
-		<form name="billing_form" id="billing_form" class="form">
+		<form name="billing_form" id="billing_form" class="">
 			<div class="form-group">
-				<label for="amount">결제 금액: </label>
-				<input class="form-control" type="text" name="amount" id="amount" placeholder="0 원" style="width:200px;">
+				<label class="" for="amount">결제 금액: </label>
+				<input class="form-control" type="text" name="amount" id="amount" placeholder="0 원" style="width:200px;" value="1000">
 			</div>
 			
 			<div class="form-group">
@@ -53,6 +53,20 @@ function appr_dtm() {
 						<input type="radio" name="pay_method" id="pay_method_3" value="ic"> 계좌이체
 					</label>
 				</div>
+			</div>
+			<hr>
+
+			<div class="form-gorup">
+				<label class="control-label">이 름</label>
+				<input class="form-control" type="text" name="name" value="" placeholder="영수증에 표시되는 이름입니다">
+			</div>
+			<div class="form-gorup">
+				<label class="control-label">이메일</label>
+				<input class="form-control" type="text" name="email" value="tester@test.app">
+			</div>
+			<div class="form-gorup">
+				<label class="control-label">연락처</label>
+				<input class="form-control" type="text" name="contact" value="0165912185">
 			</div>
 
 			<hr>
@@ -85,6 +99,7 @@ function appr_dtm() {
 				MCASH_PAYMENT(form);
 				break;
 			case 'va':
+			case 'ra':
 			default:
 				alert('올바르지 않은 결제 방식입니다');
 		}
@@ -162,18 +177,17 @@ function appr_dtm() {
 
 	<!-- 휴대폰 결제 폼 -->
 	<script src="https://mup.mobilians.co.kr/js/ext/ext_inc_comm.js"></script>
-
 	<form name="mb_billing_form" id="mb_billing_form" accept-charset="euc-kr">
 		<input type="hidden" name="CASH_GB" value="MC">
 		<input type="hidden" name="MC_SVCID" value="{{ Config::get('site.pg.mobile.service_id') }}">
-		<input type="hidden" name="PAY_MODE" value="00">
+		<input type="hidden" name="PAY_MODE" value="00"><!--  00:테스트, 10:실결제 -->
 		<input type="hidden" name="Prdtprice" value="">
 		<input type="hidden" name="Prdtnm" value="모바일 결제 테스트 상품">
 		<input type="hidden" name="Okurl" value="{{ url('billing/mobile') }}">
 		<input type="hidden" name="Siteurl" value="supportmyshow.net"><!-- 20 bytes 이하만 가능 -->
 		<input type="hidden" name="Tradeid" value="{{  Config::get('site.pg.mobile.service_id') . '_' . appr_dtm() }}">
 		<input type="hidden" name="LOGO_YN" value="N">
-		<input type="hidden" name="CALL_TYPE" value="P">
+		<input type="hidden" name="CALL_TYPE" value="P"><!-- P:팝업, SELF:페이지전환 -->  
 	</form>
 
 	<!-- custom script -->

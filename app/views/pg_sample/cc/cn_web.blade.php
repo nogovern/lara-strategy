@@ -1,4 +1,4 @@
-<!DOCTYPE html PUBLIC "-//W3C//Dtd html 4.01 Transitional//EN" "http://www.w3.org/tr/html4/loose.dtd">
+<!DOCTYPE html>
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
@@ -13,12 +13,9 @@
 		scrollbar-highlight-color:#FFFFFF;
 		scrollbar-shadow-color:#FFFFFF
 	}
-	body { FONT-family:돋움; FONT-size:9pt;color:#000000; text-decoration:none;}
-	td { FONT-family:돋움; FONT-size:9pt;color:#000000; text-decoration:none;}
 </style>
 
 <script src="https://pg.mcash.co.kr/dlp/js/npgIF.js"></script> <!-- 필수 -->
-
 <script language="javascript">
 
 	/**
