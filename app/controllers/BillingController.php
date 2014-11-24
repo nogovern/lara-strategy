@@ -70,18 +70,58 @@ class BillingController extends \BaseController {
 		//
 	}
 
-
 	/**
-	 * Remove the specified resource from storage.
-	 *
-	 * @param  int  $id
-	 * @return Response
+	 * 핸드폰결제 - notiurl
+	 * @return [type] [description]
 	 */
-	public function destroy($id)
+	public function mc_callback()
 	{
-		//
+		$isOk = false;
+		$input = Input::all();
+
+		// 결제결과 저장
+		if(Input::get('Resultcd') == '0000')
+		{
+			$isOk = true;
+		}
+
+		return $isOk ? 'SUCCESS' : 'FAIL';
 	}
 
+	/**
+	 * 핸드폰결제 - okurl 
+	 * -- 결제 결과를 받아 처리한다.
+	 * @return [type] [description]
+	 */
+	public function mc_okurl()
+	{
+		$payment = new Acme\Payment\PaymentByMobile();
+		$result = $payment->response();
+	}
+
+	/**
+	 * 신용카드 - dbpath
+	 * @return [type] [description]
+	 */
+	public function cc_dbpath()
+	{
+		$payment = new Acme\Payment\PaymentByCreditCard();
+		$payment->dbpath();
+	}
+
+	/**
+	 * 신용카드 - redirpath
+	 * @return [type] [description]
+	 */
+	public function cc_redirpath()
+	{
+		$payment = new Acme\Payment\PaymentByCreditCard();
+		$payment->redirpath();
+	}
+
+
+
+	// 테스트용 결제 양식
 	public function getMobileForm()
 	{
 		return View::make('pg_sample.mobile.mc_web_utf8');
@@ -96,6 +136,5 @@ class BillingController extends \BaseController {
 	{
 		return View::make('pg_sample.cc.cn_web');
 	}
-
 
 }

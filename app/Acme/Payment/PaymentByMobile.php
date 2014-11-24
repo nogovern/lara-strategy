@@ -28,4 +28,17 @@ class PaymentByMobile implements PaymentInterface {
 	{
 		var_dump('핸드폰 결제를 취소합니다');
 	}
+
+	// 결제결과 응답을 받음
+	public function response()
+	{
+
+		return false;
+	}
+
+	// 결제 결과를 저장한다. (interface???)
+	public function store($data = array())
+	{
+
+	}
 }

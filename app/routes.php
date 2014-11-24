@@ -55,7 +55,8 @@ Route::group(['prefix' =>'billing'], function()
 	Route::get('/', 'BillingController@index');
 
 	Route::get('mobile', 'BillingController@getMobileForm');
-	Route::post('mobile', 'BillingController@postMobileForm');
+	Route::any('mobile_callback', 'BillingController@mc_callback');			// notiurl 방식 사용할 경우 호출 후 -> okurl 로 이동
+	Route::post('mobile_okurl', 'BillingController@mc_okurl');
 
 	Route::get('card', 'BillingController@getCardForm');
 	Route::get('card/dbpath', 'BillingController@getCard');
@@ -65,5 +66,16 @@ Route::group(['prefix' =>'billing'], function()
 	Route::get('iche/okurl', 'BillingController@getIcheOkurl');
 	Route::get('iche/notiurl', 'BillingController@getIcheNotiurl');
 });
+
+// test
+Route::get('dbpath', 'BillingController@cc_dbpath');
+
+Route::any('pay/cc/dbpath', 'Acme\PaymentByCreditCard@dbpath');
+Route::any('pay/cc/redirpath', 'Acme\PaymentByCreditCard@redirpath');
+
+Route::any('pay/mc/okurl', function() {});
+Route::any('pay/mc/notiurl', function() {});
+
+
 
 

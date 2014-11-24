@@ -41,7 +41,7 @@ function appr_dtm() {
 				<label class="control-label">결제방법을 선택하세요</label>
 				<div>
 					<label class="radio-inline">
-						<input type="radio" name="pay_method" id="pay_method_1" value="mb"> 핸드폰결제
+						<input type="radio" name="pay_method" id="pay_method_1" value="mc"> 핸드폰결제
 					</label>
 					<label class="radio-inline">
 						<input type="radio" name="pay_method" id="pay_method_2" value="cc"> 신용카드
@@ -50,7 +50,7 @@ function appr_dtm() {
 						<input type="radio" name="pay_method" id="pay_method_3" value="va"> 가상계좌
 					</label>
 					<label class="radio-inline">
-						<input type="radio" name="pay_method" id="pay_method_3" value="ic"> 계좌이체
+						<input type="radio" name="pay_method" id="pay_method_3" value="ra"> 실계좌이체
 					</label>
 				</div>
 			</div>
@@ -95,7 +95,7 @@ function appr_dtm() {
 			case 'cc':
 				PAY_REQUEST(form);
 				break;
-			case 'mb':
+			case 'mc':
 				MCASH_PAYMENT(form);
 				break;
 			case 'va':
@@ -167,8 +167,8 @@ function appr_dtm() {
 		
 		<!-- 가맹점 서버 URL -->
 		<input type="hidden" name="URL" value="{{ $_SERVER['HTTP_HOST'] }} ">	
-		<input type="hidden" name="DBPATH" value="billing/cc/dbpath">
-		<input type="hidden" name="REDIRPATH" value="billing/cc/redirpath">
+		<input type="hidden" name="DBPATH" value="pay/cc/dbpath">
+		<input type="hidden" name="REDIRPATH" value="pay/cc/redirpath">
 
 		<!-- 선택사항 -->
 		<input type="hidden" name="Userid" value="">
@@ -177,13 +177,13 @@ function appr_dtm() {
 
 	<!-- 휴대폰 결제 폼 -->
 	<script src="https://mup.mobilians.co.kr/js/ext/ext_inc_comm.js"></script>
-	<form name="mb_billing_form" id="mb_billing_form" accept-charset="euc-kr">
+	<form name="mc_billing_form" id="mc_billing_form" accept-charset="euc-kr">
 		<input type="hidden" name="CASH_GB" value="MC">
 		<input type="hidden" name="MC_SVCID" value="{{ Config::get('site.pg.mobile.service_id') }}">
 		<input type="hidden" name="PAY_MODE" value="00"><!--  00:테스트, 10:실결제 -->
 		<input type="hidden" name="Prdtprice" value="">
 		<input type="hidden" name="Prdtnm" value="모바일 결제 테스트 상품">
-		<input type="hidden" name="Okurl" value="{{ url('billing/mobile') }}">
+		<input type="hidden" name="Okurl" value="{{ url('billing/mobile_okurl') }}">
 		<input type="hidden" name="Siteurl" value="supportmyshow.net"><!-- 20 bytes 이하만 가능 -->
 		<input type="hidden" name="Tradeid" value="{{  Config::get('site.pg.mobile.service_id') . '_' . appr_dtm() }}">
 		<input type="hidden" name="LOGO_YN" value="N">
@@ -208,8 +208,8 @@ function appr_dtm() {
 			var	amount = $("#amount").val();
 
 			// 휴대폰결제 양식
-			if(pay_method == 'mb') {
-				form = document.mb_billing_form;
+			if(pay_method == 'mc') {
+				form = document.mc_billing_form;
 				$("input[name=Prdtprice]", form).val(amount);
 			} 
 
@@ -223,7 +223,7 @@ function appr_dtm() {
 				alert('정의되지 않은 결제 방법입니다');
 			}
 
-			var allowed_methods = ['mb', 'cc', 'va', 'ic'];
+			var allowed_methods = ['mc', 'cc', 'va', 'ra'];
 			if($.inArray(pay_method, allowed_methods) < 0) {
 				alert('error!');
 			} else {
